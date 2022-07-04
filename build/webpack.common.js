@@ -2,8 +2,11 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const webpack = require("webpack");
+const devConfig = require("./webpack.dev");
+const prodConfig = require("./webpack.prod");
+const { default: merge } = require("webpack-merge");
 
-module.exports = {
+const commonConfig = {
   entry: {
     // lodash: "./src/lodash.js",
     main: "./src/index.js",
@@ -47,10 +50,10 @@ module.exports = {
             //   ],
             // },
           },
-          {
-            // 实现webpack不能实现的行为
-            loader: "imports-loader?this=>window",
-          },
+          // {
+          //   // 实现webpack不能实现的行为
+          //   loader: "imports-loader?this=>window",
+          // },
         ],
       },
       {
@@ -120,4 +123,12 @@ module.exports = {
    2、异步代码（import）：异步代码，无需做任何配置，会自动进行代码分割，放置到新的文件中
    */
   performance: false,
+};
+
+module.exports = (production) => {
+  if (production) {
+    return merge(commonConfig, prodConfig);
+  } else {
+    return merge(commonConfig, devConfig);
+  }
 };
