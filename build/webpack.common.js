@@ -1,7 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const webpack = require("webpack");
+// const webpack = require("webpack");
 const devConfig = require("./webpack.dev");
 const prodConfig = require("./webpack.prod");
 const { default: merge } = require("webpack-merge");
@@ -82,9 +82,9 @@ const commonConfig = {
       template: "src/index.html",
     }),
     // 垫片 shimming
-    new webpack.ProvidePlugin({
-      $: "jquery", // 自动帮你注入第三方模块
-    }),
+    // new webpack.ProvidePlugin({
+    //   $: "jquery", // 自动帮你注入第三方模块
+    // }),
   ],
   optimization: {
     runtimeChunk: {

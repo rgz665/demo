@@ -1,5 +1,6 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const { GenerateSW } = require("workbox-webpack-plugin");
 
 const prodConfig = {
   mode: "production",
@@ -11,6 +12,10 @@ const prodConfig = {
       filename: "[name].css",
       // 间接引用
       chunkFilename: "[id].css",
+    }),
+    new GenerateSW({
+      clientsClaim: true,
+      skipWaiting: true,
     }),
   ],
   module: {
